@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    Gossip
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Le Nom de l'auteur : 
+    <%=@user.first_name%> <%= @user.last_name %></h5>
+    <p class="card-text"><%= @gossip.title %>: 
+    	<%= @gossip.content %></p>
+    <a href="/profil/<%=@gossip.user_id%>" class="btn btn-primary">son profile</a>
+  </div>
+</div>
