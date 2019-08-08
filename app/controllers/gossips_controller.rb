@@ -15,7 +15,9 @@ class GossipsController < ApplicationController
   def create
     title = params['title']
     content = params['content']
-    @gossip = Gossip.new(title: title,content: content, user_id: 11) # avec xxx qui sont les données obtenues à partir du formulaire
+    anonymous = User.create(first_name: "anonymous", description: "anonymous", email: "anonymous", age: 00, city_id: 8)
+    u_id = anonymous.id 
+    @gossip = Gossip.new(title: title,content: content, user_id: u_id) # avec xxx qui sont les données obtenues à partir du formulaire
 
   if @gossip.save # essaie de sauvegarder en base @gossip
     # si ça marche, il redirige vers la page d'index du site
