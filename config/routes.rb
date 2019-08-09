@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 	resources :gossips
-  get 'profil/:id', to:'profil#show' 
+	resources :profil
+  resources	:city
+  # get 'profil/:id', to:'profil#show' 
   # get 'potin/:id', to: 'potin#show'
   get 'welcome/:first_name', to: 'welcome#show'
   get 'contact/show'

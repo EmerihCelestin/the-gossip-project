@@ -1,0 +1,31 @@
+<nav class="navbar navbar-dark btn-dark">
+  <h1><a href="/">Super Gossip</a></h1>
+</nav>
+<center> 
+<div class="card" style="width: 43rem;">
+  <div class="card-body">
+    <h1 class="card-title"><%=@city.name%></h1>
+  </div>
+</div>
+
+<table class="table table-bordered col-6 text-center">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Author</th>
+					<th scope="col">Gossip</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<% @user.each do |user| %>
+				<td>
+				<%= user.first_name %></td>
+				<% usergossip = user.gossips %>
+				<td><% usergossip.each do |gossip| %>
+					<a href="/gossips/<%= gossip.id %>"><%= gossip.title%></a> ;
+				<%end%></td>
+				
+			</tr>
+			<% end %>
+		</tbody>
+	</table>

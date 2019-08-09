@@ -1,6 +1,28 @@
 class ProfilController < ApplicationController
-  def show
-  	@user = User.find(params["id"])
+  
+  def index
+	end
+	
+	def show
+		@user = User.find(params["id"])
   	@city = @user.city
-  end
+	end
+	
+	def new
+	 end
+	
+	def create
+	end
+	
+	
+	def edit
+	end
+	
+	def update
+	end
+
+	def destroy
+	end
+	
 end
+	

@@ -1,15 +1,15 @@
 <div class="card">
-  <div class="card-header">
-    Gossip
-  </div>
+  <nav class="navbar navbar-dark btn-dark">
+    <h1><a href="/">Super Gossip</a></h1>
+  </nav>
   <div class="card-body">
-    <h4 class="card-title">Le Nom de l'auteur :</h4> 
-    <p><%=@user.first_name%> <%= @user.last_name %></p> 
+    <h4 class="card-title">Le Nom de l'auteur :</h4>
+    <p><%=@user.first_name%> <%= @user.last_name %></p>
     <h4 class="card-text"> Le titre du gossip :</h4>
     <p><%= @gossip.title %></p>
     <p class="text-justify"><%= @gossip.content %></p>
     <h4 class="card-text"> La ville de l'auteur :</h4>
-    <p> <%= @city.name %></p> 
+    <h3><a href="/city/<%=@user.city_id%>"><%= @city.name %></a></br></h3>
     <a href="/profil/<%=@gossip.user_id%>" class="btn btn-primary">son profile</a>
   </div>
 </div>
