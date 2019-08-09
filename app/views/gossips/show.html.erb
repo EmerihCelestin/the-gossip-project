@@ -1,16 +1,17 @@
-
- <%= form_tag url_for(action: 'destroy'), method: "delete" do %>
- <div class="card">
+<%= form_tag url_for(action: 'destroy'), method: "delete" do %>
+<div class="card">
   <nav class="navbar navbar-dark btn-dark">
     <h1><a href="/">Super Gossip</a></h1>
   </nav>
+  <center>
   <div class="card-body">
-    <h4 class="card-title">Le Nom de l'auteur :</h4>
+    <h5 class="card-title">Le Nom de l'auteur :</h5>
     <p><%=@user.first_name%> <%= @user.last_name %></p>
-    <h4 class="card-text"> Le titre du gossip :</h4>
+    <h5 class="card-text"> Le titre du gossip :</h5>
     <p><%= @gossip.title %></p>
-    <p class="text-justify"><%= @gossip.content %></p>
-    <h4 class="card-text"> La ville de l'auteur :</h4>
+    <h5 class="card-text"> Le gossip :</h5>
+    <p class="text-justify text-center"><%= @gossip.content %></p>
+    <h5 class="card-text"> La ville de l'auteur :</h5>
     <h3><a href="/city/<%=@user.city_id%>"><%= @city.name %></a></br></h3>
     <a href="/gossips/<%=@gossip.id %>/edit" class="btn btn-primary">edit
     </a>
@@ -20,3 +21,15 @@
   </div>
 </div>
 <% end %>
+</center>
+<center>
+<div class="card" style="width: 20rem;">
+  <div class="card-body">
+    <%= form_tag gossip_comment_path(@gossip ,action: 'create', controller: 'comment'), method: "post" do %>
+    <%= label_tag 'Comment', nil, class: "card-title" %>
+    <%= text_area_tag'content'%>
+    <%= submit_tag  "comment", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+</center>

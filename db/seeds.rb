@@ -24,3 +24,5 @@ end
 100.times do
 	tag_gossips = TagGossip.create(tag_id: Faker::Number.between(from: 1, to: 10), gossip_id: Faker::Number.between(from: 1, to: 20))  
 end 
+ 	
+ 	anonyms = User.create(first_name: "anonyms", last_name: "anonyms", description: "anonyms", email:"anonyms", age: 0, city_id: 8  )

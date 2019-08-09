@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-	resources :gossips
+  resources :gossips do
+  resources :comment
+  end
 	resources :profil
   resources	:city
   # get 'profil/:id', to:'profil#show' 
