@@ -17,9 +17,7 @@ class GossipsController < ApplicationController
   def create
     title = params['title']
     content = params['content']
-    anonymous = User.create(first_name: "anonymous", description: "anonymous", email: "anonymous", age: 00, city_id: 8)
-    u_id = anonymous.id 
-    @gossip = Gossip.new(title: title,content: content, user_id: u_id) # avec xxx qui sont les données obtenues à partir du formulaire
+    @gossip = Gossip.new(title: title,content: content, user_id: 11) # avec xxx qui sont les données obtenues à partir du formulaire
 
   if @gossip.save # essaie de sauvegarder en base @gossip
     # si ça marche, il redirige vers la page d'index du site
@@ -47,5 +45,8 @@ class GossipsController < ApplicationController
   end
 
   def destroy
+    @gossip = Gossip.find(params['id'])
+    @gossip.destroy
+    redirect_to gossips_path, :notice => "Gossip Removed"
   end
 end
