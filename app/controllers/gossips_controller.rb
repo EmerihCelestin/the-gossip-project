@@ -2,11 +2,13 @@ class GossipsController < ApplicationController
   def index
     @all_users= User.all
     @all_gossips= Gossip.all
+    @all_cities= City.all
   end
 
   def show
     @gossip = Gossip.find(params['id'])
     @user = @gossip.user
+    @city = @user.city
   end
 
   def new

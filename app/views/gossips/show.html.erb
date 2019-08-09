@@ -3,10 +3,13 @@
     Gossip
   </div>
   <div class="card-body">
-    <h5 class="card-title">Le Nom de l'auteur : 
-    <%=@user.first_name%> <%= @user.last_name %></h5>
-    <p class="card-text"><%= @gossip.title %>: 
-    	<%= @gossip.content %></p>
+    <h4 class="card-title">Le Nom de l'auteur :</h4> 
+    <p><%=@user.first_name%> <%= @user.last_name %></p> 
+    <h4 class="card-text"> Le titre du gossip :</h4>
+    <p><%= @gossip.title %></p>
+    <p class="text-justify"><%= @gossip.content %></p>
+    <h4 class="card-text"> La ville de l'auteur :</h4>
+    <p> <%= @city.name %></p> 
     <a href="/profil/<%=@gossip.user_id%>" class="btn btn-primary">son profile</a>
   </div>
 </div>
