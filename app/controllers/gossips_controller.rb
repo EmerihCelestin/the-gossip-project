@@ -32,9 +32,18 @@ class GossipsController < ApplicationController
   end
 
   def edit
+    @gossip = Gossip.find(params['id'])
   end
 
-  def update
+ def update
+  @gossip = Gossip.find(params[:id])
+  title = params['title']
+  content = params['content']
+    if @gossip.update(title: title, content: content)
+      redirect_to gossips_path, :alert => "Gossip was succesfully updated!"
+    else
+      render :edit
+    end
   end
 
   def destroy

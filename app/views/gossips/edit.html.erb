@@ -1,2 +1,39 @@
-<h1>Gossips#edit</h1>
-<p>Find me in app/views/gossips/edit.html.erb</p>
+<html>
+  <body>
+    <!-- ... -->
+    <nav class="navbar navbar-dark btn-dark">
+      <h1><a href="/">Super Gossip</a></h1>
+    </nav>
+    <% if @gossip %>
+    <% if @gossip.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <p>Nous n'avons pas réussi à éditer le potin pour la (ou les) raison(s) suivante(s) :</p>
+      
+      <ul>
+        <% @gossip.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <% end %>
+    <center>
+    <div class="card" style="width: 40rem;">
+      <div class="card-body">
+        <%= form_tag url_for(action: 'update'), method: "patch" do %>
+          <%= label_tag 'Title' %>
+          <%= text_field_tag 'title', @gossip.title, class: "form-control col-4"%>
+          <br /><br />
+        <%= label_tag 'Content' %>
+        <%= text_area_tag 'content', @gossip.content,class: "form-control col-4"%>
+        <br /> <br />
+        <%= submit_tag  "Update gossip", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+    </center>
+    
+    <!-- ... -->
+  </body>
+</html>
+<form>
