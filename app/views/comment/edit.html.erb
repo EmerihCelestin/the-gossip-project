@@ -1,2 +1,36 @@
-<h1>Comment#edit</h1>
-<p>Find me in app/views/comment/edit.html.erb</p>
+<html>
+  <body>
+    <!-- ... -->
+    <nav class="navbar navbar-dark btn-dark">
+      <h1><a href="/">Super Gossip</a></h1>
+    </nav>
+    <% if @comment %>
+      <% if @comment.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+      <p>Nous n'avons pas réussi à éditer le commentaire pour la (ou les) raison(s) suivante(s) :</p>
+      
+      <ul>
+        <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+      </div>
+      <% end %>
+    <% end %>
+    <center>
+    <div class="card" style="width: 40rem;">
+      <div class="card-body">
+        <%= form_tag url_for(action: 'update'), method: "patch" do %>
+        <%= label_tag 'Content' %>
+        <%= text_area_tag 'content', @comment.content, class: "form-control col-4"%>
+        <br /> <br />
+        <%= submit_tag  "Update comment", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+    </center>
+    
+    <!-- ... -->
+  </body>
+</html>
+<form>

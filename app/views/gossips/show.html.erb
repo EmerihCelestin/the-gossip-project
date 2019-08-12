@@ -1,9 +1,11 @@
-<%= form_tag url_for(action: 'destroy'), method: "delete" do %>
 <div class="card">
   <nav class="navbar navbar-dark btn-dark">
     <h1><a href="/">Super Gossip</a></h1>
   </nav>
-  <center>
+  
+</div>
+
+<center>
   <div class="card-body">
     <h5 class="card-title">Le Nom de l'auteur :</h5>
     <p><%=@user.first_name%> <%= @user.last_name %></p>
@@ -16,16 +18,56 @@
     <a href="/gossips/<%=@gossip.id %>/edit" class="btn btn-primary">edit
     </a>
     
-    <button type="submit" class="btn btn-danger">Delete Gossip</button>
+    <a href="/gossips/<%=@gossip.id %>" class="btn btn-danger" data-method="delete">Delete gossip</a>
     <a href="/profil/<%=@gossip.user_id%>" class="btn btn-primary">son profile</a>
   </div>
-</div>
-<% end %>
+</center>
+
+<center>
+  <% if @comment %>
+      <% if @comment.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+      <p>Nous n'avons pas réussi à créer le commentaire pour la (ou les) raison(s) suivante(s) :</p>
+      
+      <ul>
+        <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+      </div>
+      <% end %>
+  <% end %>
+  <% if alert != nil  %>
+    <div class="alert alert-success" role="alert" style="width: 20rem;">
+    <p id="alert"><%= alert %></p>
+    </div>
+  <% end %> 
+<div><% @gossip.comments.each do |comment|%>
+  <div class="card" style="width: 20rem">
+    <div class="card-header" >
+    <a href="/profil/<%=comment.user_id%>" class="btn btn-outline-dark btn-sm"><%= comment.user.first_name%> :</a>
+    </div>
+    <div class="card-body p-0">
+      <p class="text-justify text-center m-0"><%=comment.content%></p>
+    </div>
+    </a>
+    <div class="text-left">  
+      <a href="/gossips/<%=@gossip.id %>/comment/<%=comment.id %>/edit" class="btn btn-primary btn-sm ">edit
+      <a href="/gossips/<%=@gossip.id %>/comment/<%=comment.id %>" class="btn btn-danger btn-sm" data-method="delete">Delete</a>
+    </div>
+  </div>
+  <% end%>
+</div> 
+  <% if notice != nil  %>
+    <div class="alert alert-success" role="notice" style="width: 20rem;">
+      <p id="notice"><%= notice %></p>
+    </div>
+  <% end %>  
 </center>
 <center>
 <div class="card" style="width: 20rem;">
   <div class="card-body">
-    <%= form_tag gossip_comment_path(@gossip ,action: 'create', controller: 'comment'), method: "post" do %>
+    <%= form_tag url_for(controller: 'comment',action: 'create', :gossip_id => @gossip.id), method: "post" do %>
     <%= label_tag 'Comment', nil, class: "card-title" %>
     <%= text_area_tag'content'%>
     <%= submit_tag  "comment", class: "btn btn-primary" %>

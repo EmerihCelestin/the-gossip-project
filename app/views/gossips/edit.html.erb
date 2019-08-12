@@ -5,8 +5,8 @@
       <h1><a href="/">Super Gossip</a></h1>
     </nav>
     <% if @gossip %>
-    <% if @gossip.errors.any? %>
-    <div class="alert alert-danger" role="alert">
+      <% if @gossip.errors.any? %>
+      <div class="alert alert-danger" role="alert">
       <p>Nous n'avons pas réussi à éditer le potin pour la (ou les) raison(s) suivante(s) :</p>
       
       <ul>
@@ -14,8 +14,8 @@
         <li><%= message %></li>
         <% end %>
       </ul>
-    </div>
-    <% end %>
+      </div>
+      <% end %>
     <% end %>
     <center>
     <div class="card" style="width: 40rem;">
