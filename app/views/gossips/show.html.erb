@@ -1,11 +1,10 @@
-<div class="card">
   <nav class="navbar navbar-dark btn-dark">
-    <h1><a href="/">Super Gossip</a></h1>
+    <h3><a href="/">Super Gossip</a></h3>
   </nav>
   
-</div>
 
 <center>
+<div class="card" style="width: 23rem">
   <div class="card-body">
     <h5 class="card-title">Le Nom de l'auteur :</h5>
     <p><%=@user.first_name%> <%= @user.last_name %></p>
@@ -17,10 +16,11 @@
     <h3><a href="/city/<%=@user.city_id%>"><%= @city.name %></a></br></h3>
     <a href="/gossips/<%=@gossip.id %>/edit" class="btn btn-primary">edit
     </a>
-    
     <a href="/gossips/<%=@gossip.id %>" class="btn btn-danger" data-method="delete">Delete gossip</a>
     <a href="/profil/<%=@gossip.user_id%>" class="btn btn-primary">son profile</a>
+    <p class="text-md-left text-muted">commetaire(s)(<%=@gossip.comments.count%>) </p>
   </div>
+</div>
 </center>
 
 <center>
