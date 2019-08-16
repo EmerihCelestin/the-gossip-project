@@ -14,7 +14,7 @@ city.each	do |city|
 city_id << city.id
 end
 20.times do 
-	users = User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::Lorem.paragraph(sentence_count: 3, supplemental: false, random_sentences_to_add: 4), email: Faker::Internet.email, age: Faker::Number.between(from: 18, to: 90),city_id: city_id[rand(0..city_id.length)])
+	users = User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::Lorem.paragraph(sentence_count: 3, supplemental: false, random_sentences_to_add: 4), email: Faker::Internet.email, age: Faker::Number.between(from: 18, to: 90),city_id: city_id[rand(0..city_id.length)],password: "emerih18" ,password_confirmation: "emerih18")
 end
 
 # 20.times do 
