@@ -10,7 +10,7 @@
 # end	
 city = City.all
 city_id =[]
-city.each	|city| do
+city.each	do |city| 
 city_id << city.id
 end
 20.times do 
