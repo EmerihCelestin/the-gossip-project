@@ -32,7 +32,7 @@ gossip_id << gossip.id
 end
 
 50.times do
- comments = Comment.create(content: Faker::Movie.quote,user_id: user_id[rand(0..user_id.length), gossip_id: gossip_id[rand(0..gossip_id.length) )
+ comments = Comment.create(content: Faker::Movie.quote,user_id: user_id[rand(0..user_id.length), gossip_id: gossip_id[rand(0..gossip_id.length)])
 end	
 
 10.times do
