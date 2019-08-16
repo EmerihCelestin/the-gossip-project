@@ -1,5 +1,5 @@
 class AccueilController < ApplicationController
-  def show
+  def index
   	@all_users= User.all
   	@all_gossips= Gossip.all
 

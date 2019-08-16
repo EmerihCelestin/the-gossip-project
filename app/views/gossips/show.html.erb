@@ -1,68 +1,90 @@
-  <nav class="navbar navbar-dark btn-dark">
-    <h3><a href="/">Super Gossip</a></h3>
-  </nav>
-  
-
+<nav class="navbar navbar-light bg-dark">
+  <a class="navbar-brand text-white" href="/gossips">
+    <img src="https://logopond.com/logos/84580e04dc1d6b8eb99fc18efbbc43f2.png" width="30" height="30" class=" d-inline-block align-top" alt="">
+    Super Gossip
+  </a>
+</nav>
 <center>
-<div class="card" style="width: 23rem">
-  <div class="card-body">
-    <h5 class="card-title">Le Nom de l'auteur :</h5>
-    <p><%=@user.first_name%> <%= @user.last_name %></p>
-    <h5 class="card-text"> Le titre du gossip :</h5>
-    <p><%= @gossip.title %></p>
-    <h5 class="card-text"> Le gossip :</h5>
-    <p class="text-justify text-center"><%= @gossip.content %></p>
-    <h5 class="card-text"> La ville de l'auteur :</h5>
-    <h3><a href="/city/<%=@user.city_id%>"><%= @city.name %></a></br></h3>
-    <a href="/gossips/<%=@gossip.id %>/edit" class="btn btn-primary">edit
-    </a>
-    <a href="/gossips/<%=@gossip.id %>" class="btn btn-danger" data-method="delete">Delete gossip</a>
-    <a href="/profil/<%=@gossip.user_id%>" class="btn btn-primary">son profile</a>
-    <p class="text-md-left text-muted">commetaire(s)(<%=@gossip.comments.count%>) </p>
-  </div>
-</div>
-</center>
-
-<center>
-  <% if @comment %>
-      <% if @comment.errors.any? %>
-      <div class="alert alert-danger" role="alert">
-      <p>Nous n'avons pas réussi à créer le commentaire pour la (ou les) raison(s) suivante(s) :</p>
-      
-      <ul>
-        <% @comment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-      </ul>
-      </div>
+  <div class="card" style="width: 23rem">
+    <div class="card-body">
+      <h5 class="card-title">Le Nom de l'auteur :</h5>
+      <p><%=@user.first_name%> <%= @user.last_name %></p>
+      <h5 class="card-text"> Le titre du gossip :</h5>
+      <p><%= @gossip.title %></p>
+      <h5 class="card-text"> Le gossip :</h5>
+      <p class="text-justify text-center"><%= @gossip.content %></p>
+      <h5 class="card-text"> La ville de l'auteur :</h5>
+      <h3><a href="/city/<%=@user.city_id%>"><%= @city.name %></a></br></h3>
+      <% if current_user == @gossip.user %>
+      <a href="/gossips/<%=@gossip.id %>/edit" class="btn btn-primary">edit
+      </a>
+      <a href="/gossips/<%=@gossip.id %>" class="btn btn-danger" data-method="delete">Delete gossip</a>
       <% end %>
-  <% end %>
-  <% if alert != nil  %>
-    <div class="alert alert-success" role="alert" style="width: 20rem;">
-    <p id="alert"><%= alert %></p>
+      <a href="/profil/<%=@gossip.user_id%>" class="btn btn-primary">son profile</a>
+      <%if @gossip.likes.length == 0 %>
+        <%@add = 1%>
+      <%else%>
+        <%@gossip.likes.each do |like|%>
+            <%if like.user != current_user%>
+                <%@add = 1 %>
+            <%else%>
+                <%@add  = 0 %>
+                <%break%>
+            <%end%>
+        <%end%>
+      <%end%>
+      
+      <% if @add == 1 %>
+        <%= link_to "👍Like" "(#{@gossip.likes.count})",gossip_like_index_path(@gossip.id),:class => "btn btn-primary", method: :post %>
+         <%@add = 1%>
+      <% else %>  
+            <%= link_to "👎Dislike" "like(#{@gossip.likes.count})",gossip_like_path(@gossip.id),:class => "btn btn-danger", method: :delete%>
+      <% end %>
+      <p class="text-md-left text-muted">commetaire(s)(<%=@gossip.comments.count%>) </p>
     </div>
-  <% end %> 
+  </div>
+</center>
+<center>
+<% if @comment %>
+<% if @comment.errors.any? %>
+<div class="alert alert-danger" role="alert">
+  <p>Nous n'avons pas réussi à créer le commentaire pour la (ou les) raison(s) suivante(s) :</p>
+  
+  <ul>
+    <% @comment.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<% end %>
+<% if alert != nil  %>
+<div class="alert alert-success" role="alert" style="width: 20rem;">
+  <p id="alert"><%= alert %></p>
+</div>
+<% end %>
 <div><% @gossip.comments.each do |comment|%>
   <div class="card" style="width: 20rem">
     <div class="card-header" >
-    <a href="/profil/<%=comment.user_id%>" class="btn btn-outline-dark btn-sm"><%= comment.user.first_name%> :</a>
+      <a href="/profil/<%=comment.user_id%>" class="btn btn-outline-dark btn-sm"><%= comment.user.first_name%> :</a>
     </div>
     <div class="card-body p-0">
       <p class="text-justify text-center m-0"><%=comment.content%></p>
     </div>
-    </a>
-    <div class="text-left">  
-      <a href="/gossips/<%=@gossip.id %>/comment/<%=comment.id %>/edit" class="btn btn-primary btn-sm ">edit
-      <a href="/gossips/<%=@gossip.id %>/comment/<%=comment.id %>" class="btn btn-danger btn-sm" data-method="delete">Delete</a>
-    </div>
+    <% if current_user == comment.user %>
+      <div class="text-left">
+        <a href="/gossips/<%=@gossip.id %>/comment/<%=comment.id %>/edit" class="btn btn-primary btn-sm ">edit</a>
+        <a href="/gossips/<%=@gossip.id %>/comment/<%=comment.id %>" class="btn btn-danger btn-sm" data-method="delete">Delete</a>
+      </div>
+    <% end %>
   </div>
   <% end%>
-</div> 
-  <% if notice != nil  %>
-    <div class="alert alert-success" role="notice" style="width: 20rem;">
-      <p id="notice"><%= notice %></p>
-    </div>
-  <% end %>  
+</div>
+<% if notice != nil  %>
+<div class="alert alert-success" role="notice" style="width: 20rem;">
+  <p id="notice"><%= notice %></p>
+</div>
+<% end %>
 </center>
 <center>
 <div class="card" style="width: 20rem;">

@@ -1,0 +1,25 @@
+<nav class="navbar navbar-light bg-dark justify-content-between">
+	<a class="navbar-brand text-white" href="/">
+		<img src="https://logopond.com/logos/84580e04dc1d6b8eb99fc18efbbc43f2.png" width="30" height="30" class=" d-inline-block align-top" alt="">
+		Super Gossip
+	</a>
+	<a href="/profil/new" class="btn btn-success float-right text-white"  type="submit">inscirption</a>
+</nav>
+<center>
+<div class="card" style="width: 18rem;">
+	<img class="card-img-top" src="http://blog.educpros.fr/jean-charles-cailliez/files/2017/12/coworking-illustration.png" alt="Card image cap">
+	<div class="card-body">
+		<%= form_tag url_for(action: 'create'), method: "post" do %>
+		<%= label_tag 'Adress e-mail :'%>
+		<%= text_field_tag 'email', nil , class: "form-control mr-sm-2" , style: "height: 35px ; width: 250px" %>
+		<%= label_tag 'Mot de passe :' %>
+		<%= password_field_tag 'password', nil , class: "form-control mr-sm-2", style: "height: 35px ; width: 250px" %>
+		<%= submit_tag "connexion", class: "btn btn-outline-primary "%>
+		<% end %>
+	</div>
+	<% if flash.now[:danger] %>
+	<h5 class="alert-danger"><%= flash.now[:danger] %></h5>
+	<% end %>
+</div>
+</center>
+

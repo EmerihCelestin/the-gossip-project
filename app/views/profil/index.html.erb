@@ -5,14 +5,10 @@
 				<img src="https://logopond.com/logos/84580e04dc1d6b8eb99fc18efbbc43f2.png" width="30" height="30" class=" d-inline-block align-top" alt="">
 				Super Gossip
 			</a>
-			<%= link_to "Se déconnecter", session_path(session.id), :class => "btn btn-outline-light", method: :delete %>
 		</nav>
 		<title>The Gossip Project</title>
 	</head>
 	<body>
-		<% if flash.now[:sucess] %>
-        	<h5 class="alert-success"><%= flash.now[:sucess] %></h5>
-    	<% end %>
 		<% if notice != nil  %>
 		<div class="alert alert-success" role="alert">
 			<p id="notice"><%= notice %></p>
@@ -40,29 +36,8 @@
 				<td>
 				<%= user.first_name %></td>
 				<% usergossip = user.gossips %>
-				<td>
-					<% usergossip.each do |gossip| %>
-					<%if gossip.likes.length == 0 %>
-			      		<%@add = 1%>
-			      	<%else%>
-			        <%gossip.likes.each do |like|%>
-			          <%if like.user != current_user%>
-			               <%@add = 1 %>
-			           <%else%>
-			                <%@add  = 0 %>
-			                <%break%>
-			            	<%end%>
-			        	<%end%>
-			   		<%end%>
-					<a href="/gossips/<%= gossip.id %>"><%= gossip.title%></a>
-					<% if @add == 1 %>
-		        		<%= link_to "👍" "(#{gossip.likes.count})",gossip_like_index_path(gossip.id),:class => "btn btn-primary", method: :post %>
-		         		<%@add = 1%>
-		      		<% else %>  
-		            	<%= link_to "👎" "(#{gossip.likes.count})",gossip_like_path(gossip.id, :id => gossip.likes.ids),:class => "btn btn-danger", method: :delete%>
-		      		<% end %>
-
-					</a> ;<span class="text-muted">(<%=gossip.comments.count%>) </span>
+				<td><% usergossip.each do |gossip| %>
+					<a href="/gossips/<%= gossip.id %>"><%= gossip.title%></a> ;<span class="text-muted">(<%=gossip.comments.count%>) </span>
 				<%end%></td>
 				
 			</tr>

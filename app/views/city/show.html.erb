@@ -1,31 +1,53 @@
-<nav class="navbar navbar-dark btn-dark">
-  <h1><a href="/">Super Gossip</a></h1>
+<nav class="navbar navbar-light bg-dark">
+	<a class="navbar-brand text-white" href="/gossips">
+		<img src="https://logopond.com/logos/84580e04dc1d6b8eb99fc18efbbc43f2.png" width="30" height="30" class=" d-inline-block align-top" alt="">
+		Super Gossip
+	</a>
 </nav>
-<center> 
+<center>
 <div class="card" style="width: 43rem;">
-  <div class="card-body">
-    <h1 class="card-title"><%=@city.name%></h1>
-  </div>
+	<div class="card-body">
+		<h1 class="card-title"><%=@city.name%></h1>
+	</div>
 </div>
-
 <table class="table table-bordered col-6 text-center">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">Author</th>
-					<th scope="col">Gossip</th>
-				</tr>
-			</thead>
-			<tbody>
-				
-				<% @user.each do |user| %>
-				<td>
-				<%= user.first_name %></td>
-				<% usergossip = user.gossips %>
-				<td><% usergossip.each do |gossip| %>
-					<a href="/gossips/<%= gossip.id %>"><%= gossip.title%></a> ;
-				<%end%></td>
-				
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">Author</th>
+			<th scope="col">Gossip</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+		<% @user.each do |user| %>
+		<td>
+		<%= user.first_name %></td>
+		<% usergossip = user.gossips %>
+		<td><% usergossip.each do |gossip| %>
+			<%if gossip.likes.length == 0 %>
+			      <%@add = 1%>
+			      <%else%>
+			        <%gossip.likes.each do |like|%>
+			          <%if like.user != current_user%>
+			               <%@add = 1 %>
+			           <%else%>
+			                <%@add  = 0 %>
+			                <%break%>
+			            <%end%>
+			        <%end%>
+			   <%end%>
+			<a href="/gossips/<%= gossip.id %>"><%= gossip.title%>
+		      <% if @add == 1 %>
+		        <%= link_to "👍" "(#{gossip.likes.count})",gossip_like_index_path(gossip.id),:class => "btn btn-primary", method: :post %>
+		         <%@add = 1%>
+		      <% else %>  
+		            <%= link_to "👎" "(#{gossip.likes.count})",gossip_like_path(gossip.id),:class => "btn btn-danger", method: :delete%>
+		      <% end %>
+			</a> ;
+		<%end%></td>
+		
+	</tr>
+	<% end %>
+</tbody>
+</table>
+      

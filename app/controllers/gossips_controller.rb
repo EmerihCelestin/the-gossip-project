@@ -1,4 +1,5 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user
   def index
     @all_users= User.all
     @all_gossips= Gossip.all
@@ -17,7 +18,8 @@ class GossipsController < ApplicationController
   def create
     title = params['title']
     content = params['content']
-    @gossip = Gossip.new(title: title,content: content, user_id: 11) # avec xxx qui sont les données obtenues à partir du formulaire
+    @gossip = Gossip.new(title: title,content: content) # avec xxx qui sont les données obtenues à partir du formulaire
+    @gossip.user = User.find_by(id: session[:user_id])
 
   if @gossip.save # essaie de sauvegarder en base @gossip
     # si ça marche, il redirige vers la page d'index du site
@@ -49,4 +51,14 @@ class GossipsController < ApplicationController
     @gossip.destroy
     redirect_to gossips_path, :notice => "Gossip Removed"
   end
+
+  private
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Please log in."
+      redirect_to new_session_path
+    end
+  end
+
 end

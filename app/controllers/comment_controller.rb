@@ -1,4 +1,5 @@
 class CommentController < ApplicationController
+  
   def index
   end
 
@@ -11,13 +12,10 @@ class CommentController < ApplicationController
  def create
     id = params[:gossip_id]
     @gossip = Gossip.find(id)
-    
-    anonyme = User.find(11)
 
     content = params[:content]
-
     @comment = Comment.new(content: content)
-    @comment.user = anonyme
+    @comment.user = User.find_by(id: session[:user_id])
     @comment.gossip = @gossip
     @user = @gossip.user
     @city = @user.city 
